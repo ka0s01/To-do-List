@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card title">
+            <h1>To-Do-List</h1>
+
+        </div>
+        <div class="card list-menu body" >
+            <h2>Tasks</h2>
+            <div class="task-form">
+                    <div class="task-row">
+                    <label for="task-name">Add Tasks</label>
+                    <input type="text" id="task-name">
+                    <input type="date" id="task-date">
+                    </div>
+                    <button onclick="addTask()" id="add-task">Add</button>
+
+            </div>
+            <div id="lists" class="lists">
+
+            </div>
+        </div>
+        <div class="card completed-menu body">
+            <h2>Completed</h2>
+            
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
