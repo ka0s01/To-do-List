@@ -33,22 +33,23 @@ h2{
     flex-direction: row;
     gap: 8px;
 }
-.list-menu{
+.list-menu , .completed-menu{
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 20px;
+    align-items: center;
     
 }
 
-.lists{
+.lists , .completed-tasks{
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
 }
 
-.task-card{
+.task-card , .completed-card{
     border: 1px solid black;
     padding: 12px;
     width: 20rem;
