@@ -3,22 +3,42 @@
 let state = {
     todos : [],
     theme : "light",
+    error : null,
 
 };
 
-function addTask(){
-    let task = document.getElementById("task-name").value ;
-    let date = document.getElementById("task-date").value;
-    state.todos.push({task_name : task,task_date: date, completed: false});
-     
-    document.getElementById("task-name").value = "";
-    document.getElementById("task-date").value = "";
-    render();
+const savedTodos = localStorage.getItem("todos");
+
+if (savedTodos) {
+    state.todos = JSON.parse(savedTodos);
 }
+
+
 
 let listEl = document.getElementById("lists");
 let completedEl = document.getElementById("completed-tasks");
 
+render();
+render_completed_tasks();
+
+function addTask(){
+    let task = document.getElementById("task-name").value ;
+    let date = document.getElementById("task-date").value;
+    if(!task ){
+        state.error = "Task name is required";
+        render_error();
+    }
+    else{
+        state.error = null;
+        state.todos.push({task_name : task,task_date: date, completed: false});
+        saveTodos();
+        
+        document.getElementById("task-name").value = "";
+        document.getElementById("task-date").value = "";
+        render();
+    }
+    
+}
 function render(){
     listEl.innerHTML=``;
     let display_index = 1;
@@ -46,6 +66,7 @@ function render(){
         }
         
     });
+     
 
 }
 
@@ -67,9 +88,21 @@ function render_completed_tasks(){
 
 
     })
+    
 }
 
 
+function render_error(){
+    alert(state.error);
+}
+
+
+function reset(){
+    localStorage.clear();
+    state.todos = [];
+    render();
+    render_completed_tasks();
+}
 function handleClick(e){
     if(e.target.dataset.action == "delete"){
         const idx = e.target.dataset.index;
@@ -85,14 +118,24 @@ function handleChange(e){
 
 function deleteTask(idx){
     state.todos.splice(idx,1);
+    saveTodos();
     render();
 }
 
 function completeTask(i){
     state.todos[i].completed = true;
+    saveTodos();
     render();
     render_completed_tasks();
 }
+
+function saveTodos(){
+    localStorage.setItem(
+        "todos",
+        JSON.stringify(state.todos)
+    );
+}
+ 
 
 
 listEl.addEventListener("click", handleClick);

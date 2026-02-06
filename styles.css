@@ -1,63 +1,247 @@
-
-.container{
-    display: grid;
-    grid-template-columns: 3fr 2.5fr;
-    grid-template-rows: auto 1fr;
-    text-align: center;
-    height: 60vh;
-    
-}
- 
-h2{
-    margin-top: 12px;
-}
-.title{
-    grid-column: 1 / -1;
-}
-.card{
-    border: 1px solid black;
-    margin: 8px;
-    
-     
-}
- 
-.task-form{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
+:root {
+    /* Color Palette - Modern Indigo & Slate */
+    --bg-color: #f1f5f9;       /* Light Blue-Grey Background */
+    --card-bg: #ffffff;        /* Pure White */
+    --primary-color: #4f46e5;  /* Indigo for Buttons */
+    --primary-hover: #4338ca;  /* Darker Indigo */
+    --text-main: #1e293b;      /* Dark Slate for headings */
+    --text-body: #475569;      /* Softer Grey for text */
+    --danger-color: #ef4444;   /* Red for Delete/Reset */
+    --danger-hover: #dc2626;
+    --success-color: #10b981;  /* Green for completion indicators */
+    --border-radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.task-row{
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-}
-.list-menu , .completed-menu{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    align-items: center;
-    
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.lists , .completed-tasks{
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: center;
 }
 
-.task-card , .completed-card{
-    border: 1px solid black;
-    padding: 12px;
-    width: 20rem;
-    display: flex;
-    flex-direction: row;
-    gap: 4px;
+/* Card Styling */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 25px;
+    transition: transform 0.2s ease;
 }
-.task-card input{
-    margin-left: auto;
-    transform: scale(1.7);
+
+.title {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary-color), #818cf8);
+    color: white;
+}
+
+.title h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+/* Form Styling */
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.task-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-body);
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* --- ADD BUTTON STYLING --- */
+button#add-task {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 100%;
+}
+
+button#add-task:hover {
+    background-color: var(--primary-hover);
+}
+
+button#add-task:active {
+    transform: scale(0.98);
+}
+
+/* --- RESET BUTTON STYLING (UPDATED) --- */
+button#reset {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 100%;
+    margin-top: 5px;
+}
+
+button#reset:hover {
+    background-color: var(--danger-hover); /* Gets darker on hover */
+}
+
+button#reset:active {
+    transform: scale(0.98);
+}
+
+/* Task Lists Styling */
+.lists, .completed-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual Task Item */
+.task-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.task-card span {
+    flex-grow: 1;
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-right: 10px;
+    word-break: break-word; 
+}
+
+/* Checkbox Styling */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 15px;
+    accent-color: var(--success-color);
+}
+
+/* Delete Button */
+button[data-action="delete"] {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button[data-action="delete"]:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Completed Tasks */
+.completed-card {
+    background-color: #ecfdf5; /* Very light green bg */
+    border: 1px solid #d1fae5;
+    padding: 12px;
+    border-radius: 8px;
+    color: #065f46;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.completed-card::before {
+    content: "✓";
+    margin-right: 10px;
+    font-weight: bold;
+    color: var(--success-color);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Tweak (UPDATED FOR LABEL PLACEMENT) */
+@media (min-width: 450px) {
+    .task-row {
+        /* Use Grid to put label on top row (full width) and inputs on bottom row */
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 10px;
+    }
+    
+    .task-row label {
+        grid-column: 1 / -1; /* Spans across both columns */
+        margin-bottom: 5px;
+    }
 }

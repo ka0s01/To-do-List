@@ -14,6 +14,8 @@
         </div>
         <div class="card list-menu body" >
             <h2>Tasks</h2>
+            <p id="error-message"></p>
+
             <div class="task-form">
                     <div class="task-row">
                     <label for="task-name">Add Tasks</label>
@@ -21,6 +23,7 @@
                     <input type="date" id="task-date">
                     </div>
                     <button onclick="addTask()" id="add-task">Add</button>
+                    <button onclick="reset()" id="reset" >Reset Tasks</button>
 
             </div>
             <div id="lists" class="lists">
