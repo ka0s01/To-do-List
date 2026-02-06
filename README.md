@@ -1,4 +1,4 @@
-# 📝 Todo List App
+# Todo List App
 
 This is a simple Todo List web application built using **HTML, CSS, and JavaScript**.
 
